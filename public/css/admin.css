@@ -1,0 +1,8 @@
+#admin-title {
+	width: 100%;
+	border: 1px solid darkGray;
+	line-height: 20px;
+}
+.admin-label {
+	padding: 10px 0;
+}

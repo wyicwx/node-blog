@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head dir="ltr" lang="zh-CN">
+	<meta charset="UTF-8" />
+	<title>maple的小站</title>
+	<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+	<link rel="stylesheet" type="text/css" media="all" href="/css/admin.css">
+	<script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/pagedown/Markdown.Converter.js"></script>
+    <script type="text/javascript" src="/pagedown/Markdown.Sanitizer.js"></script>
+    <script type="text/javascript" src="/pagedown/Markdown.Editor.js"></script>
+    <script type="text/javascript" src="/js/ajaxupload.js"></script>
+</head>
+<body class="home blog">
+
+	<div id="top">
+		<div id="top_content">
+			<a href="/"><div id="title">maple的小站</div>
+			<div id="title_description">又一个 WordPress 站点</div>
+			 
+			<div id="links">
+				<div class="horizontal_menu">
+					<ul>
+						<li class="current_page_item"><a href="/" title="首页"><div>首页</div></a></li>
+						<li class="page_item page-item-2"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+	<div id="main">
+
+		<%- body %>
+		
+		<% if(!!globalParam.admin) {%>
+		<div id="sidebar_column">
+			<div>
+				<a href="/admin/index">文章</a>
+				<a href="/admin/index">所有文章</a>
+				<a href="/admin/new">写文章</a>
+				<a href="/admin/">分类目录</a>
+				<a href="/admin/tags">文章标签</a>
+			</div>
+		</div>
+		<% } %>
+		<div id="clear"></div>	
+		<div id="footer">
+			<hr />
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head dir="ltr" lang="zh-CN">
+	<meta charset="UTF-8" />
+	<title><%= globalParam.siteName %>的小站</title>
+	<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+</head>
+<body class="home blog">
+
+	<div id="top">
+		<div id="top_content">
+			<a href="/"><div id="title"><%= globalParam.siteName %></div>
+			<div id="title_description"><%= globalParam.siteName %></div>
+			 
+			<div id="links">
+				<div class="horizontal_menu">
+					<ul>
+						<li class="current_page_item">
+							<a href="/" title="首页">
+								<div>首页</div>
+							</a>
+						</li>
+						<li class="page_item page-item-2">
+							<a href="/" title="">
+								<div>关于我</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<% if(!!globalParam.admin) { %>
+			<div id="admin">
+				<a href="/admin/home">管理</a>|<a href="/admin/logout">注销</a>
+			</div>
+			<% } %>
+		</div>
+	</div>
+
+	<div id="main">
+
+		<%- body %>
+		
+		<div id="sidebar_column">
+			<ul id="sidebar">
+				<li class="pagenav">
+					<li>标签<hr /></li>
+					<ul>
+						<% for(var i in tags) {%>
+						<li>
+							<a href="/blog/search/tag/<%= tags[i].tag %>"><%= tags[i].tag %></a>(<%= tags[i].size %>)
+						</li>
+						<% } %>
+					</ul>
+				</li>			
+				<!-- <li id="linkcat-2" class="linkcat">
+					<li>链接表<hr /></li>
+					<ul class='xoxo blogroll'>
+						<li><a href="http://wordpress.org/news/">WordPress Blog</a></li>
+						<li><a href="http://wp4sae.sinaapp.com/">WordPress for SAE</a></li>
+					</ul>
+				</li> -->
+				<!-- <li class="categories">
+					<li>Categories<hr /></li>
+					<ul>	
+						<li class="cat-item cat-item-1">
+							<a href="http://wpmp.sinaapp.com/?cat=1" title="查看 未分类 下的所有文章">未分类</a>
+						</li>
+					</ul>
+				</li>	 -->		
+				<li id="archives">
+					<h2>归档:</h2>
+					<ul>
+						<% for(var i in archives) {%>
+						<li>
+							<a href='http://wpmp.sinaapp.com/?m=201203' title='<%= archives[i].archive%>'><%= archives[i].archive%></a>
+						</li>
+						<% } %>
+					</ul>
+				</li>
+				<li id="meta">
+					<h2>Meta:</h2>
+					<ul>
+						<li><a href="/admin/login">登录</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div id="clear"></div>	
+		<div id="footer">
+			<hr />
+		</div>
+	</div>
+
+</body>
+</html>

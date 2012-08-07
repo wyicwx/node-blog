@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="/css/pagedown.css">
+<div id="content">
+	<form action="/admin/create" method="post">
+		<div class="admin-label">
+			<label for="title">标题</label>
+		</div>
+		<input type="text" name="title" id="admin-title">
+		<div class="admin-label"><label for="content">内容和标签</label></div>
+		<ul class="nav-pills j-select">
+			<li class="active"><a href="javascript:void(0)" name="markdown" data-toggle="pill">markdown</a></li>
+			<li><a href="javascript:void(0)" name="preview" data-toggle="pill">预览</a></li>
+		</ul>
+		<div class="wmd-panel j-option" name="markdown">
+		    <div id="wmd-button-bar"></div>
+		    <textarea class="wmd-input" id="wmd-input" name="content">
+			</textarea>
+		</div>
+		<div id="wmd-preview" class="wmd-panel wmd-preview hidden j-option" name="preview"></div>
+		<input type="submit" value="发布"><br>
+		<section>
+			<option value=""></option>
+		</section>
+	</form>
+	
+</div>
+<script type="text/javascript">
+	(function () {
+        var converter1 = Markdown.getSanitizingConverter();
+        var editor1 = new Markdown.Editor(converter1);
+        editor1.run();
+
+        $(".j-select>li>a").click(function() {
+        	$(".j-select>li").removeClass("active");
+        	$(this).parent().addClass("active");
+        	var name = $(this).attr('name');
+        	$(".j-option").addClass("hidden");
+        	$(".j-option[name=" + name + "]").removeClass("hidden");
+        });
+    })();
+</script>

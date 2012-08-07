@@ -1,0 +1,103 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/bin/npm', 'install', 'express' ]
+info using npm@1.1.4
+info using node@v0.6.12
+verbose config file /home/maple/.npmrc
+verbose config file /usr/etc/npmrc
+verbose config file /usr/share/npm/npmrc
+verbose caching /home/maple/maple实验室/node.js/blog/node_modules/routing/package.json
+verbose loadDefaults routing@0.0.2
+verbose caching /home/maple/maple实验室/node.js/blog/node_modules/jscex/package.json
+verbose loadDefaults jscex@0.6.1
+verbose caching /home/maple/maple实验室/node.js/blog/node_modules/node-markdown/package.json
+verbose caching /home/maple/maple实验室/node.js/blog/node_modules/eventproxy/package.json
+verbose caching /home/maple/maple实验室/node.js/blog/node_modules/jscexc/package.json
+verbose loadDefaults jscexc@0.6.0
+verbose caching /home/maple/maple实验室/node.js/blog/node_modules/jscex-jit/package.json
+verbose loadDefaults jscex-jit@0.6.1
+verbose caching /home/maple/maple实验室/node.js/blog/node_modules/jscex-async-powerpack/package.json
+verbose loadDefaults jscex-async-powerpack@0.6.2
+verbose caching /home/maple/maple实验室/node.js/blog/node_modules/jscex-async/package.json
+verbose loadDefaults jscex-async@0.6.2
+verbose cache add [ 'express', null ]
+silly cache add: name, spec, args [ undefined, 'express', [ 'express', null ] ]
+verbose parsed url { pathname: 'express', path: 'express', href: 'express' }
+verbose addNamed [ 'express', '' ]
+verbose addNamed [ null, '' ]
+silly name, range, hasData [ 'express', '', false ]
+verbose raw, before any munging express
+verbose url resolving [ 'https://registry.npmjs.org/', './express' ]
+verbose url resolved https://registry.npmjs.org/express
+verbose etag "K42TVMS5KC3K1ZN5L61W2TP1"
+http GET https://registry.npmjs.org/express
+silly get cb [ 304, undefined ]
+verbose etag express from cache
+silly name, range, hasData 2 [ 'express', '', true ]
+silly versions [ 'express',
+silly versions   [ '0.14.0',
+silly versions     '0.14.1',
+silly versions     '1.0.0beta',
+silly versions     '1.0.0beta2',
+silly versions     '1.0.0rc',
+silly versions     '1.0.0rc2',
+silly versions     '1.0.0rc3',
+silly versions     '1.0.0rc4',
+silly versions     '1.0.0',
+silly versions     '1.0.1',
+silly versions     '1.0.2',
+silly versions     '1.0.3',
+silly versions     '1.0.4',
+silly versions     '1.0.5',
+silly versions     '1.0.6',
+silly versions     '1.0.7',
+silly versions     '2.5.0',
+silly versions     '2.5.1',
+silly versions     '2.5.2',
+silly versions     '2.5.3',
+silly versions     '2.5.4',
+silly versions     '2.5.5',
+silly versions     '2.5.6',
+silly versions     '2.5.7',
+silly versions     '2.5.8',
+silly versions     '2.5.9',
+silly versions     '3.0.0alpha1',
+silly versions     '3.0.0alpha2',
+silly versions     '3.0.0alpha3',
+silly versions     '3.0.0alpha4',
+silly versions     '3.0.0alpha5',
+silly versions     '3.0.0beta1',
+silly versions     '3.0.0beta2',
+silly versions     '3.0.0beta3',
+silly versions     '2.5.10',
+silly versions     '3.0.0beta4',
+silly versions     '2.5.11',
+silly versions     '3.0.0beta5' ] ]
+verbose bin dist [ '0.6-ares1.7.5-evundefined-openssl1.0.1-v83.7.12.22-linux-ia32-3.2.0-26-generic',
+verbose bin dist   { shasum: '6fbd60684c3b09a454548b18a41dc9a9331788eb',
+verbose bin dist     tarball: 'http://registry.npmjs.org/express/-/express-3.0.0beta5.tgz' } ]
+verbose addRemoteTarball [ 'https://registry.npmjs.org/express/-/express-3.0.0beta5.tgz',
+verbose addRemoteTarball   '6fbd60684c3b09a454548b18a41dc9a9331788eb' ]
+verbose mkdir (expected) error ENOENT, no such file or directory '/tmp/npm-315766319477'
+verbose mkdir (expected) error ENOENT, no such file or directory '/tmp/npm-315766319477/315766319477-0.8346593438182026'
+verbose mkdir done: /tmp/npm-315766319477/315766319477-0.8346593438182026 755
+verbose fetch to /tmp/npm-315766319477/315766319477-0.8346593438182026/tmp.tgz
+http GET https://registry.npmjs.org/express/-/express-3.0.0beta5.tgz
+ERR! failed to fetch https://registry.npmjs.org/express/-/express-3.0.0beta5.tgz
+ERR! Error: getaddrinfo EADDRINFO
+ERR!     at errnoException (dns.js:31:11)
+ERR!     at Object.onanswer [as oncomplete] (dns.js:140:16)
+ERR! You may report this log at:
+ERR!     <http://bugs.debian.org/npm>
+ERR! or use
+ERR!     reportbug --attach /home/maple/maple实验室/node.js/blog/npm-debug.log npm
+ERR! 
+ERR! System Linux 3.2.0-26-generic
+ERR! command "node" "/usr/bin/npm" "install" "express"
+ERR! cwd /home/maple/maple实验室/node.js/blog
+ERR! node -v v0.6.12
+ERR! npm -v 1.1.4
+ERR! syscall getaddrinfo
+ERR! code EADDRINFO
+ERR! message getaddrinfo EADDRINFO
+ERR! errno {}
+verbose exit [ 1, true ]
