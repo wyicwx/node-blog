@@ -16,18 +16,22 @@ var blog = exports,
 		ot 	: {
 			"sort":{"date":1}
 		}
-	};
+	},
+	md5 = require("ezcrypto").Crypto.MD5;
 
 blog.indexAction = function(req,res) {
-	var skip = (req.params.p > 0 ? req.params.p-1 : 0)*10;
-	
+	var pages = req.params.p, skip;
+		
+		pages = (pages < 0 || !pages) ? 1 : parseInt(pages, 10);
+		skip = (pages - 1) * 10;
+
 	var eventproxy = new EventProxy(),
 		blogmapper = new global.Routing.models.Model_BlogMapper(),
 		tagmapper = new global.Routing.models.Model_TagMapper(),
 		archivemapper = new global.Routing.models.Model_ArchiveMapper(),
-		handle, blogconditions;
+		handle, blogconditions, topconditions;
 
-	handle = function(blogs, tags, archives) {
+	handle = function(blogs, tags, archives, tops) {
 		if(blogs === "ERROR") {
 			res.end(blogmapper.error);
 		} 
@@ -38,11 +42,12 @@ blog.indexAction = function(req,res) {
 			blogs:blogs,
 			tags:tags,
 			archives:archives,
+			tops:tops,
 			globalParam:global.Routing.models.Model_Function.getGlobalParam(req)
 		});
 	};
 
-	eventproxy.assign("blogs","tags","archives",handle);
+	eventproxy.assign("blogs","tags","archives","tops",handle);
 
 	blogconditions = {
 		obj : {
@@ -65,11 +70,32 @@ blog.indexAction = function(req,res) {
 
 	tagmapper.findAsync(tagconditions, function(data) {
 		eventproxy.trigger("tags", data);
-	})
+	});
 
 	archivemapper.findAsync(archiveconditions, function(data) {
 		eventproxy.trigger("archives", data);
-	})
+	});
+
+	if(pages == 1) {
+		topconditions = {
+			obj : {
+				"isDelete":{"$ne":true},
+				"isTop":true
+			},
+			opt : {
+
+			},
+			ot : {
+				"sort":{"setTopDate":-1}
+			}
+		}
+
+		blogmapper.findAsync(topconditions, function(data) {
+			eventproxy.trigger("tops",data);
+		});
+	} else {
+		eventproxy.trigger("tops", {});
+	}
 }
 
 blog.articleAction = function(req,res) {
@@ -117,6 +143,7 @@ blog.addCommentAction = function(req,res) {
 		eventproxy = new EventProxy(),
 		body = req.body;
 
+	body.avatar = md5(body.email);
 	blogmapper = new global.Routing.models.Model_BlogMapper();
 	blogmapper.addCommentAsync(body.bid, body, function(data) {
 		return res.redirect("/blog/article/bid/"+body.bid);

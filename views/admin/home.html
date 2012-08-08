@@ -2,10 +2,10 @@
 <div id="content">
 	<form action="/admin/create" method="post">
 		<div class="admin-label">
-			<label for="title">标题</label>
+			<label for="title"><span class="red">*</span>标题</label>
 		</div>
 		<input type="text" name="title" id="admin-title">
-		<div class="admin-label"><label for="content">内容和标签</label></div>
+		<div class="admin-label"><label for="content"><span class="red">*</span>内容</label></div>
 		<ul class="nav-pills j-select">
 			<li class="active"><a href="javascript:void(0)" name="markdown" data-toggle="pill">markdown</a></li>
 			<li><a href="javascript:void(0)" name="preview" data-toggle="pill">预览</a></li>
@@ -22,18 +22,23 @@
 			<input id="admin-title" type="input" name="tags">
 		</div>
 		<div>
-			<label for="topic">-选择专题</label>
+			<label for="topic">选择专题</label>
 			<select>
 				<option>未选择</option>
 				<% for(var i in topics) {%>
 					<option value="<%= topics[i].topic %>"><%= topics[i].topic %></option>
 				<% } %>
 			</select>
+			<a href="javascript:;">创建专题</a>
 		</div>	
 		<input type="submit" value="发布">
 	</form>
 	
 </div>
+<script type="text/javascript" src="/pagedown/Markdown.Converter.js"></script>
+<script type="text/javascript" src="/pagedown/Markdown.Sanitizer.js"></script>
+<script type="text/javascript" src="/pagedown/Markdown.Editor.js"></script>
+<script type="text/javascript" src="/js/ajaxupload.js"></script>
 <script type="text/javascript">
 	(function () {
         var converter1 = Markdown.getSanitizingConverter();

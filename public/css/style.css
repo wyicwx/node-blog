@@ -401,6 +401,8 @@ a img.aligncenter {
 #post_content img {
 	max-width: 100%;
 	border: solid 1px #ccc;
+	margin: 0 auto;
+	display: block;
 }
 #post_pages {
 	clear: both;

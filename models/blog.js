@@ -10,6 +10,7 @@ function Blog() {
 		date 	: new Date(),
 		editdate: new Date(),
 		content : "",
+		md 		: "",
 		bid 	: -1,
 		comments : [],
 		// isDelete : false,

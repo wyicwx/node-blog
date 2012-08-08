@@ -77,7 +77,7 @@ Archive.prototype = {
 	formatDate: function() {
 		var date = this.getArchive().date;
 
-			date = date.getFullYear() + "年" + date.getMonth() + 1 + "月";
+			date = date.getFullYear() + "年" + (date.getMonth() + 1) + "月";
 			this.getArchive().archive = date;
 
 		return date;

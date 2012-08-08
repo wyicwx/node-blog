@@ -1,5 +1,8 @@
 var admin = exports,
 	EventProxy = require("eventproxy").EventProxy,
+	querystring = require("querystring"),
+	getSanitizingConverter = require("../public/pagedown/Markdown.Sanitizer").getSanitizingConverter,
+	saneConv = getSanitizingConverter(),
 	topicconditions = {
 		obj : {},
 		opt : {},
@@ -36,10 +39,6 @@ admin.homeAction = function(req,res) {
 		eventproxy.trigger("topics", data);
 	});
 
-	
-
-
-	
 }
 
 admin.createAction = function(req,res) {
@@ -58,7 +57,8 @@ admin.createAction = function(req,res) {
 			return res.end("ERROR_CREATE_" + n.toUpperCase() + "NOTFOUND");
 		}
 	})
-
+	body.md = body.content;
+	body.content = saneConv.makeHtml(body.content);
 	body.tags.split("|").forEach(function(n) {
 		if(n === "") return false;
 		tags.push(n);
@@ -109,4 +109,27 @@ admin.logoutAction = function(req, res) {
 	delete req.session.admin;
 	delete req.session.username;
 	res.redirect("/");
+}
+
+admin.setTopAction = function(req, res) {
+	if(!req.session.admin) {
+		return res.redirect("/admin/login");
+	}
+	var blogmapper, bid;
+
+	bid = req.params.bid || req.body.bid;
+	if(!bid) {
+		res.end('{success:0}');
+		return;
+	}
+	bid = parseInt(bid, 10);
+
+	blogmapper = new global.Routing.models.Model_BlogMapper();
+	blogmapper.setTopAsync(bid, function(data) {
+		if(data == "ERROR") {
+			res.end('{success:0,error:blogmapper.error}');
+			return;
+		}
+		res.end('{success:1}');
+	});
 }

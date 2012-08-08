@@ -1,4 +1,25 @@
 <div id="content">
+	<!-- 置顶文章 -->
+	<% 	var i,max;
+		for(i=0,max=tops.length;i<max;i++) { 
+	%>
+	<div id="post" class="post-1 post type-post status-publish format-standard hentry category-1">
+			<div id="post_title"><a href="/blog/article/bid/<%= tops[i].bid %>" rel="bookmark">[置顶]<%= tops[i].title %></a></div>
+			<div id="post_date">
+				<%= global.Routing.models.Model_Util.parseDate(tops[i].date,"yyyy-MM-dd hh:mm") %>
+			</div>
+			<div id="clear"></div>
+			<hr />
+			<div id="post_info"><b>Author:</b> <%= tops[i].author %><b>|</b> <b>Category:</b> <a href="http://wpmp.sinaapp.com/?cat=1" title="查看 未分类 中的全部文章" rel="category">未分类</a> <b>|</b> <a href="/blog/article/bid/<%= tops[i].bid %>#comments" title="《<%= tops[i].title %>》上的评论"><b>Comments:</b> <%= tops[i].comments.length %></a></div>
+			<div id="post_content">
+				<!-- artitle-content -->
+				<%- tops[i].content %>
+			</div>
+	</div>
+	<% } %>
+	<!-- /置顶文章 -->
+
+	<!-- 普通文章 -->
 	<% 	var i,max;
 		for(i=0,max=blogs.length;i<max;i++) { 
 	%>
@@ -12,9 +33,10 @@
 			<div id="post_info"><b>Author:</b> <%= blogs[i].author %><b>|</b> <b>Category:</b> <a href="http://wpmp.sinaapp.com/?cat=1" title="查看 未分类 中的全部文章" rel="category">未分类</a> <b>|</b> <a href="/blog/article/bid/<%= blogs[i].bid %>#comments" title="《<%= blogs[i].title %>》上的评论"><b>Comments:</b> <%= blogs[i].comments.length %></a></div>
 			<div id="post_content">
 				<!-- artitle-content -->
-				<%= blogs[i].content %>
+				<%- blogs[i].content %>
 			</div>
 	</div>
 	<% } %>
+	<!-- /普通文章 -->
 	<div id="post_nav"></div>
 </div>

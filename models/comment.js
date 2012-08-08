@@ -15,6 +15,7 @@ function Comment() {
 		author : "",
 		comment  : "",
 		email 	 : "",
+		avatar 	 : "",
 		commentto: "",
 		url  : "",
 		ip 		 : "not ip address",
