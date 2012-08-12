@@ -241,6 +241,25 @@ BlogMapper.prototype = {
 
 			fn(data);
 		})
+	},
+	/**
+	 * 异步更新blog方法
+	 * @param  {Number}   bid blog的bid
+	 * @param  {Object}   obj $set的条件对象
+	 * @param  {Function} fn  回调函数
+	 */
+	updateAsync: function(bid, obj, fn) {
+		var _this = this;
+
+		Blog.dbTool.db_update({"bid": bid},{"$set": obj}, function(err, data) {
+			if(err) {
+				_this.isError = true;
+				_this.error = err;
+
+				return fn("ERROR");
+			}
+			fn(data);
+		})
 	}
 
 }

@@ -116,7 +116,9 @@ admin.setTopAction = function(req, res) {
 		return res.redirect("/admin/login");
 	}
 	var blogmapper, bid;
-
+	res.writeHead(200, {
+		'Content-Type': 'text/html'
+	})
 	bid = req.params.bid || req.body.bid;
 	if(!bid) {
 		res.end('{success:0}');
@@ -127,9 +129,93 @@ admin.setTopAction = function(req, res) {
 	blogmapper = new global.Routing.models.Model_BlogMapper();
 	blogmapper.setTopAsync(bid, function(data) {
 		if(data == "ERROR") {
-			res.end('{success:0,error:blogmapper.error}');
+			res.end('{"success":0,"error":blogmapper.error}');
 			return;
 		}
-		res.end('{success:1}');
+		res.end('{"success":1}');
 	});
+}
+
+admin.unsetTopAction = function(req, res) {
+	if(!req.session.admin) {
+		return res.redirect("/admin/login");
+	}
+	var blogmapper, bid;
+	res.writeHead(200, {
+		'Content-Type': 'text/html'
+	})
+	bid = req.params.bid || req.body.bid;
+	if(!bid) {
+		res.end('{"success":0}');
+		return;
+	}
+	bid = parseInt(bid, 10);
+
+	blogmapper = new global.Routing.models.Model_BlogMapper();
+	blogmapper.unsetTopAsync(bid, function(data) {
+		if(data == "ERROR") {
+			res.end('{"success":0,"error":'+blogmapper.error+'}');
+			return;
+		}
+		res.end('{"success":1}');
+	});
+}
+
+admin.editAction = function(req, res) {
+	if(!req.session.admin) {
+		return res.redirect("/admin/login");
+	}
+	var bid = req.params.bid || req.body.bid,
+		blogmapper = new global.Routing.models.Model_BlogMapper(),
+		eventproxy, topicmapper, updateObj, tags;
+
+	bid = parseInt(bid, 10);
+	
+	if(req.method == "GET") {
+		eventproxy = new EventProxy();
+		topicmapper = new global.Routing.models.Model_TopicMapper();
+
+		handle = function(blog, topics) {
+			res.template({
+				layout: true,
+				topics: topics,
+				blog: blog,
+				globalParam:global.Routing.models.Model_Function.getGlobalParam(req)
+			});
+		};
+
+		eventproxy.assign("blog", "topics", handle);
+
+		topicmapper.findAsync(topicconditions, function(data) {
+			eventproxy.trigger("topics", data);
+		});
+
+		blogmapper.getBlogByBidAsync(bid, function(data) {
+			if(data == "ERROR") {
+				res.end('{"success":0,"error":'+blogmapper.error+'}');
+				return;
+			}
+			eventproxy.trigger("blog", data);
+		})
+
+	} else {
+		updateObj = {}, tags = [];
+		updateObj.title = req.body.title;
+		updateObj.md = req.body.content;
+		updateObj.content = saneConv.makeHtml(req.body.content);
+		req.body.tags.split("|").forEach(function(n) {
+			if(n === "") return false;
+			tags.push(n);
+		})
+		updateObj.tags = tags;
+		blogmapper.updateAsync(bid, updateObj, function(data) {
+			if(data == "ERROR") {
+				res.end("<script>alert('出错了，review下代码吧!')</script>");
+			} else {
+				res.end("<script>alert('修改成功了');\
+					location.href = '/blog/article/bid/"+bid+"';\
+					</script>");
+			}
+		})
+	}
 }

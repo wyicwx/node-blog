@@ -9,12 +9,20 @@
 		<div id="clear"></div>
 		<hr />
 		<div id="post_info">
-			<b>Author:</b> <%= blog.author %> <b>|</b> <b>Category:</b> 
-			<a href="/blog/article/bid/<%= blog.bid %>" title="" rel="category">未分类</a> 
+			<b>Author:</b> 
+			<%= blog.author %> 
+			<b>|</b> 
+			<b>Category:</b> 
+			<a href="/blog/article/bid/<%= blog.bid %>" title="" rel="category">未分类</a>
 			<b>|</b> 
 			<a href="/blog/article/bid/<%= blog.bid %>#comments" title="《<%= blog.title %>》上的评论">
 				<b>Comments:</b> <%= blog.comments.length %>
 			</a>
+			<% if(blog.isTop) { %>
+			<b>|</b> 
+			<a>置顶</a>
+			<% } %>
+
 		</div>
 		<div id="content">
 			<%- blog.content %>
@@ -22,13 +30,48 @@
 		<% if(globalParam.admin) { %>
 			<div>
 				<% if(!blog.isTop) {%>
-					<a href="/admin/setTop/bid/<%=blog.bid%>">置顶</a>
+					<a href="/admin/setTop/bid/<%=blog.bid%>" id="setTop">置顶</a>
 				<% } else {%>
-					<a href="/admin/unsetTop/bid/<%=blog.bid%>">取消置顶</a>
+					<a href="/admin/unsetTop/bid/<%=blog.bid%>" id="unsetTop">取消置顶</a>
 				<% } %>	 
 				| <a href="/admin/edit/bid/<%=blog.bid%>">编辑</a> 
 				| <a>标签管理</a>
 			</div>
+			<script type="text/javascript">
+				$("#setTop").add("#unsetTop").click(function(e) {
+					var url = $(this).attr("href"), _this = this;
+					$.ajax({
+						type : "get",
+						url : url,
+						success: function(data) {
+							if(data.success) {
+								if($(_this).attr("id") == "setTop") {
+									$(_this).attr("href", url.replace("setTop","unsetTop"));
+									$(_this).attr("id", "unsetTop");
+									$(_this).html("取消置顶");
+									alert("置顶成功");
+									return false;
+								} else {
+									$(_this).attr("href", url.replace("unsetTop","setTop"));
+									$(_this).attr("id", "setTop");
+									$(_this).html("置顶");
+									alert("取消置顶成功");
+									return false;
+								}
+							}
+							alert("服务器错误，请重试！");
+						},
+						dataType: "json"
+					})
+					if ( e && e.preventDefault )
+			             e.preventDefault();
+			         //IE中阻止函数器默认动作的方式
+			         else
+			             window.event.returnValue = false;
+			         return false;
+				})
+
+			</script>
 		<% } %>
 		<% if(blog.comments.length > 0) {%>
 		<div id="comment_list">

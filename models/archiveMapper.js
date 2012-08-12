@@ -58,7 +58,25 @@ ArchiveMapper.prototype = {
 			
 			fn(data);			
 		});
+	},
+
+
+
+	findOneAsync: function(conditions, fn) {
+		
+		var _this = this;
+
+		Archive.dbTool.db_findOne(conditions, function(err, data) {
+			if(err) {
+				_this.isError = true;
+				_this.error = err;
+				return fn("ERROR");
+			}
+			
+			fn(data);			
+		});
 	}
+
 
 }
 

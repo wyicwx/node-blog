@@ -10,7 +10,15 @@
 			</div>
 			<div id="clear"></div>
 			<hr />
-			<div id="post_info"><b>Author:</b> <%= tops[i].author %><b>|</b> <b>Category:</b> <a href="http://wpmp.sinaapp.com/?cat=1" title="查看 未分类 中的全部文章" rel="category">未分类</a> <b>|</b> <a href="/blog/article/bid/<%= tops[i].bid %>#comments" title="《<%= tops[i].title %>》上的评论"><b>Comments:</b> <%= tops[i].comments.length %></a></div>
+			<div id="post_info">
+				<b>Author:</b> 
+				<%= tops[i].author %> 
+				<b>|</b> 
+				<a href="/blog/article/bid/<%= tops[i].bid %>#comments" title="《<%= tops[i].title %>》上的评论">
+					<b>Comments:</b> 
+					<%= tops[i].comments.length %>
+				</a>
+			</div>
 			<div id="post_content">
 				<!-- artitle-content -->
 				<%- tops[i].content %>
@@ -30,7 +38,18 @@
 			</div>
 			<div id="clear"></div>
 			<hr />
-			<div id="post_info"><b>Author:</b> <%= blogs[i].author %><b>|</b> <b>Category:</b> <a href="http://wpmp.sinaapp.com/?cat=1" title="查看 未分类 中的全部文章" rel="category">未分类</a> <b>|</b> <a href="/blog/article/bid/<%= blogs[i].bid %>#comments" title="《<%= blogs[i].title %>》上的评论"><b>Comments:</b> <%= blogs[i].comments.length %></a></div>
+			<div id="post_info">
+				<b>Author:</b> 
+				<%= blogs[i].author %>
+				<b>|</b> 
+				<b>Category:</b> 
+				<a href="http://wpmp.sinaapp.com/?cat=1" title="查看 未分类 中的全部文章" rel="category">未分类</a> 
+				<b>|</b> 
+				<a href="/blog/article/bid/<%= blogs[i].bid %>#comments" title="《<%= blogs[i].title %>》上的评论">
+					<b>Comments:</b> 
+					<%= blogs[i].comments.length %>
+				</a>
+			</div>
 			<div id="post_content">
 				<!-- artitle-content -->
 				<%- blogs[i].content %>
